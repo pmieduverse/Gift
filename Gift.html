@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy 25th Wedding Anniversary</title>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            font-family: 'Poppins', sans-serif;
+            text-align: center;
+            color: white;
+            background: black;
+        }
+        /* Curtain effect */
+        .curtain {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: red;
+            z-index: 999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            animation: curtainFold 3s forwards;
+            opacity: 1;
+        }
+        @keyframes curtainFold {
+            0% {
+                width: 100%;
+                height: 100%;
+            }
+            50% {
+                width: 50%;
+                height: 100%;
+            }
+            100% {
+                width: 0%;
+                height: 100%;
+                opacity: 0;
+            }
+        }
+        /* Background video */
+        .video-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            object-fit: cover;
+            z-index: -1;
+        }
+        /* Happy message */
+        .message {
+            position: absolute;
+            top: 10%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 3.5rem;
+            font-weight: bold;
+            font-family: 'Great Vibes', cursive;
+            text-shadow: 0 0 20px gold, 0 0 30px white;
+            color: gold;
+            animation: shimmer 2s infinite alternate;
+        }
+        @keyframes shimmer {
+            0% { text-shadow: 0 0 20px gold, 0 0 30px white; }
+            100% { text-shadow: 0 0 40px gold, 0 0 60px white; }
+        }
+        /* Slideshow container */
+        .slideshow-container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 90%;
+            height: 50vh;
+            overflow: hidden;
+            transform: translate(-50%, -50%);
+            display: none; /* Initially hidden */
+            align-items: center;
+        }
+        .slideshow-track {
+            display: flex;
+            animation: scroll 25s linear infinite;
+            width: max-content;
+        }
+        .slide {
+            width: 40vh;
+            height: 50vh;
+            margin: 0 10px;
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(255, 215, 0, 0.5);
+            opacity: 0.9;
+            transform: scale(0.9);
+            transition: transform 0.5s ease-in-out, opacity 0.5s;
+            object-fit: cover;
+        }
+        .slide:hover {
+            transform: scale(1.1);
+            opacity: 1;
+            box-shadow: 0 6px 15px rgba(255, 215, 0, 0.8);
+        }
+        @keyframes scroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+        /* Hidden audio player */
+        .audio-player {
+            display: none; /* Hidden initially */
+            position: absolute;
+            bottom: 10%;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        /* Play Button Style */
+        .play-btn {
+            position: absolute;
+            bottom: 5%;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 15px 30px;
+            background-color: gold;
+            color: black;
+            font-size: 20px;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 0 10px rgba(255, 215, 0, 0.8);
+            border: none;
+            transition: background-color 0.3s ease;
+        }
+        .play-btn:hover {
+            background-color: #ff9800;
+        }
+    </style>
+</head>
+<body>
+    <!-- Red Curtain -->
+    <div class="curtain" id="curtain">
+        <div>Happy 25th Wedding Anniversary</div>
+    </div>
+
+    <video class="video-bg" autoplay muted loop>
+        <source src="https://cdn.pixabay.com/video/2018/01/27/13949-253035804.mp4" type="video/mp4">
+    </video>
+    <div class="message">Happy 25th Wedding Anniversary ❤️</div>
+
+    <!-- Slideshow container (Initially hidden) -->
+    <div class="slideshow-container" id="slideshowContainer">
+        <div class="slideshow-track" id="slideshowTrack"></div>
+    </div>
+
+    <!-- Hidden Audio Player -->
+    <div class="audio-player" id="audioPlayer">
+        <audio id="audio">
+            <source src="https://od.lk/s/OTNfMzQwODAxMTNf/videoplayback%20%28mp3cut.net%29.m4a" type="audio/mp4">
+            Your browser does not support the audio element.
+        </audio>
+    </div>
+
+    <!-- Play Button -->
+    <button class="play-btn" id="playBtn">Play</button>
+
+    <script>
+        let images = [
+            "https://i.ibb.co/KpFVjn9k/1000138079-01.jpg",
+            "https://i.ibb.co/rRcqtzF7/1676417298241.jpg",
+            "https://i.ibb.co/WpPgMkqB/1709025097126.jpg",
+            "https://i.ibb.co/HL9z5WKD/1709049966037.jpg",
+            "https://i.ibb.co/qY6yCRDq/IMG-69s70.jpg",
+            "https://i.ibb.co/PZz5XL3z/Scan10199.jpg",
+            "https://i.ibb.co/b51qpqw0/IMG-E4955.jpg",
+            "https://i.ibb.co/sdcxZ4ry/1679055227929.jpg",
+            "https://i.ibb.co/BHxFdR8z/IMG-6970.jpg",
+            "https://i.ibb.co/k2g1pTrK/IMG-20240512-134625-1.jpg",
+            "https://i.ibb.co/DfXg6Hkj/IMG-E4958.jpg",
+            "https://i.ibb.co/nNKMT32L/1679056419926.jpg",
+            "https://i.ibb.co/PZz5XL3z/Scan10199.jpg",
+            "https://i.ibb.co/cKYhMRL9/Scan10226.jpg",
+            "https://i.ibb.co/BHxFdR8z/IMG-6970.jpg"
+        ];
+
+        function createSlides() {
+            let track = document.getElementById('slideshowTrack');
+            images.forEach((imageSrc) => {
+                let slide = document.createElement('img');
+                slide.src = imageSrc;
+                slide.classList.add('slide');
+                track.appendChild(slide);
+            });
+        }
+
+        function startAudioAndSlideshow() {
+            let audio = document.getElementById('audio');
+            let curtain = document.getElementById('curtain');
+            let playBtn = document.getElementById('playBtn');
+            let slideshowContainer = document.getElementById('slideshowContainer');
+            
+            playBtn.onclick = function() {
+                audio.play();
+                slideshowContainer.style.display = 'block'; // Show the slideshow
+                curtain.style.animation = 'none'; // Stop the curtain animation after click
+                curtain.style.opacity = 0;
+            };
+        }
+
+        window.onload = function() {
+            createSlides();
+            startAudioAndSlideshow(); // Start the music and slideshow
+        }
+    </script>
+</body>
+</html>
